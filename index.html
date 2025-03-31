@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Student Performance Chart</title>
+    <script
+      type="text/javascript"
+      src="https://www.gstatic.com/charts/loader.js"
+    ></script>
+  </head>
+  <body>
+    <div id="chart_div" style="width: 800px; height: 500px"></div>
+
+    <script>
+      // Load the Google Charts library
+      google.charts.load("current", { packages: ["corechart"] });
+      google.charts.setOnLoadCallback(fetchStudentData);
+
+      // Fetch student data from JSON Server
+      async function fetchStudentData() {
+        try {
+          const response = await fetch("http://localhost:3000/students");
+          const students = await response.json();
+          drawChart(students);
+          console.log(students);
+        } catch (error) {
+          console.error("Error fetching data:", error);
+        }
+      }
+
+      // Function to process data and draw the chart
+      function drawChart(students) {
+        const gradeCounts = {
+          Outstanding: 0,
+          Excellent: 0,
+          "Very Good": 0,
+          Good: 0,
+          Average: 0,
+          "Below Average": 0,
+          Fail: 0,
+        };
+
+        students.forEach((student) => {
+          if (gradeCounts.hasOwnProperty(student.grade)) {
+            gradeCounts[student.grade]++;
+            console.log(gradeCounts);
+          }
+        });
+
+        var data = google.visualization.arrayToDataTable([
+          ["Grade", "Number of Students"],
+          ...Object.entries(gradeCounts),
+        ]);
+
+        var options = {
+          title: "Overall Student Performance",
+          hAxis: { title: "Grade", titleTextStyle: { color: "#333" } },
+          vAxis: { minValue: 0 },
+          legend: "none",
+          colors: ["#4285F4"],
+        };
+
+        var chart = new google.visualization.ColumnChart(
+          document.getElementById("chart_div")
+        );
+        chart.draw(data, options);
+      }
+    </script>
+  </body>
+</html>
