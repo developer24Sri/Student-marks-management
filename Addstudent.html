@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Add Student</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 20px;
+      }
+      .container {
+        display: flex;
+      }
+      .form-container,
+      .result-container {
+        width: 50%;
+        padding: 20px;
+      }
+      .form-container {
+        border-right: 2px solid #ddd;
+      }
+      .result-container {
+        text-align: center;
+        font-size: 1.2em;
+      }
+      input,
+      select,
+      button {
+        display: block;
+        width: 100%;
+        margin: 10px 0;
+        padding: 8px;
+      }
+    </style>
+  </head>
+  <body>
+    <h2>Add Student Data</h2>
+    <div class="container">
+      <!-- Left: Form Section -->
+      <div class="form-container">
+        <form id="studentForm">
+          <label>ID: <input type="number" id="id" required /></label>
+          <label>Name: <input type="text" id="name" required /></label>
+          <label>Phone: <input type="tel" id="phone" required /></label>
+          <label>Email: <input type="email" id="email" required /></label>
+          <label>Tamil: <input type="number" id="tamil" required /></label>
+          <label>English: <input type="number" id="english" required /></label>
+          <label>Science: <input type="number" id="science" required /></label>
+          <label>Maths: <input type="number" id="maths" required /></label>
+          <label>Social: <input type="number" id="social" required /></label>
+          <label
+            >Gender:
+            <select id="gender">
+              <option value="Male">Male</option>
+              <option value="Female">Female</option>
+            </select>
+          </label>
+          <label>Standard: <input type="text" id="standard" required /></label>
+          <button type="submit">Submit</button>
+        </form>
+      </div>
+
+      <!-- Right: Live Calculation Section -->
+      <div class="result-container">
+        <p>Average: <span id="average">0</span></p>
+        <p>Total: <span id="total">0</span></p>
+        <p>Grade: <span id="grade">None</span></p>
+      </div>
+    </div>
+
+    <script>
+      const form = document.getElementById("studentForm");
+      const totalSpan = document.getElementById("total");
+      const averageSpan = document.getElementById("average");
+      const gradeSpan = document.getElementById("grade");
+
+      function calculateResults() {
+        const subjects = [
+          Number(document.getElementById("tamil").value) || 0,
+          Number(document.getElementById("english").value) || 0,
+          Number(document.getElementById("science").value) || 0,
+          Number(document.getElementById("maths").value) || 0,
+          Number(document.getElementById("social").value) || 0,
+        ];
+        const total = subjects.reduce((a, b) => a + b, 0);
+        const average = total / 5;
+
+        let grade = "Fail";
+        if (average >= 80) grade = "Outstanding";
+        else if (average >= 70) grade = "Excellent";
+        else if (average >= 60) grade = "Very Good";
+        else if (average >= 55) grade = "Good";
+        else if (average >= 50) grade = "Average";
+        else if (average >= 40) grade = "Below Average";
+
+        totalSpan.textContent = total;
+        averageSpan.textContent = average.toFixed(1);
+        gradeSpan.textContent = grade;
+      }
+
+      form.addEventListener("input", calculateResults);
+
+      form.addEventListener("submit", async function (event) {
+        event.preventDefault();
+
+        const studentData = {
+          id: document.getElementById("id").value,
+          name: document.getElementById("name").value,
+          phone: document.getElementById("phone").value,
+          email: document.getElementById("email").value,
+          Tamil: Number(document.getElementById("tamil").value),
+          English: Number(document.getElementById("english").value),
+          Science: Number(document.getElementById("science").value),
+          Maths: Number(document.getElementById("maths").value),
+          Social: Number(document.getElementById("social").value),
+          total: Number(totalSpan.textContent),
+          average: Number(averageSpan.textContent),
+          grade: gradeSpan.textContent,
+          gender: document.getElementById("gender").value,
+          standard: document.getElementById("standard").value,
+          createdAt: new Date().toISOString(),
+          updatedAt: "none",
+        };
+
+        try {
+          const response = await fetch("http://localhost:3000/students", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(studentData),
+          });
+          if (response.ok) {
+            alert("Student added successfully!");
+            form.reset();
+            totalSpan.textContent = "0";
+            averageSpan.textContent = "0";
+            gradeSpan.textContent = "None";
+          } else {
+            alert("Error adding student");
+          }
+        } catch (error) {
+          console.error("Error:", error);
+        }
+      });
+    </script>
+  </body>
+</html>
