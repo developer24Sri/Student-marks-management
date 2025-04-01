@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Edit Student</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 20px;
+      }
+      form {
+        width: 50%;
+        margin: auto;
+      }
+      label,
+      input {
+        display: block;
+        margin-top: 10px;
+        width: 100%;
+      }
+      button {
+        margin-top: 20px;
+        padding: 10px;
+        cursor: pointer;
+      }
+    </style>
+  </head>
+  <body>
+    <h2>Edit Student Data</h2>
+    <form id="editStudentForm">
+      <label>ID: <input type="text" id="id" disabled /></label>
+      <label>Name: <input type="text" id="name" /></label>
+      <label>Phone: <input type="text" id="phone" /></label>
+      <label>Email: <input type="email" id="email" /></label>
+      <label>Tamil: <input type="number" id="tamil" /></label>
+      <label>English: <input type="number" id="english" /></label>
+      <label>Science: <input type="number" id="science" /></label>
+      <label>Maths: <input type="number" id="maths" /></label>
+      <label>Social: <input type="number" id="social" /></label>
+      <label>Gender: <input type="text" id="gender" /></label>
+      <label>Standard: <input type="text" id="standard" /></label>
+      <button type="submit">Update Student</button>
+    </form>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", async function () {
+        const urlParams = new URLSearchParams(window.location.search);
+        const studentId = urlParams.get("id");
+        console.log(studentId);
+        if (!studentId) {
+          alert("Invalid student ID");
+          window.location.href = "show.html";
+          return;
+        }
+
+        // Fetching student data
+        try {
+          const response = await fetch(
+            `http://localhost:3000/students/${studentId}`,
+            {
+              method: "GET",
+              headers: { "Content-Type": "application/json" },
+            }
+          );
+          const student = await response.json();
+          if (!student) {
+            alert("Student not found");
+            window.location.href = "show.html";
+            return;
+          }
+
+          // Populate form with student data
+          document.getElementById("id").value = student.id;
+          document.getElementById("name").value = student.name;
+          document.getElementById("phone").value = student.phone;
+          document.getElementById("email").value = student.email;
+          document.getElementById("tamil").value = student.Tamil;
+          document.getElementById("english").value = student.English;
+          document.getElementById("science").value = student.Science;
+          document.getElementById("maths").value = student.Maths;
+          document.getElementById("social").value = student.Social;
+          document.getElementById("gender").value = student.gender;
+          document.getElementById("standard").value = student.standard;
+        } catch (error) {
+          console.error("Error fetching student data:", error);
+        }
+
+        // Handle form submission
+        document
+          .getElementById("editStudentForm")
+          .addEventListener("submit", async function (event) {
+            event.preventDefault(); // Prevent the form from reloading the page
+
+            const updatedStudent = {
+              name: document.getElementById("name").value,
+              phone: document.getElementById("phone").value,
+              email: document.getElementById("email").value,
+              Tamil: parseInt(document.getElementById("tamil").value),
+              English: parseInt(document.getElementById("english").value),
+              Science: parseInt(document.getElementById("science").value),
+              Maths: parseInt(document.getElementById("maths").value),
+              Social: parseInt(document.getElementById("social").value),
+              gender: document.getElementById("gender").value,
+              standard: document.getElementById("standard").value,
+              updatedAt: new Date().toISOString(), // Add updated timestamp
+            };
+
+            try {
+              const response = await fetch(
+                `http://localhost:3000/students/${studentId}`,
+                {
+                  method: "PATCH", // Use PATCH for updating only the modified fields
+                  headers: {
+                    "Content-Type": "application/json",
+                  },
+                  body: JSON.stringify(updatedStudent),
+                }
+              );
+
+              if (response.ok) {
+                alert("Student data updated successfully!");
+                window.location.href = "show.html"; // Redirect back to the show data page
+              } else {
+                alert("Failed to update student data.");
+              }
+            } catch (error) {
+              console.error("Error updating student data:", error);
+            }
+          });
+      });
+    </script>
+  </body>
+</html>

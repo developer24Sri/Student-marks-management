@@ -81,6 +81,7 @@
         const prevPageBtn = document.querySelector(".prev-page");
         const nextPageBtn = document.querySelector(".next-page");
         const addStudentBtn = document.querySelector(".add-student");
+        const studentTableBody = document.querySelector("#studentTable tbody");
 
         let students = [];
         let currentPage = 1;
@@ -106,37 +107,37 @@
         }
 
         function displayStudents() {
-          const tableBody = document.querySelector("#studentTable tbody");
-          tableBody.innerHTML = "";
+          studentTableBody.innerHTML = "";
           const start = (currentPage - 1) * rowsPerPage;
           const end = start + rowsPerPage;
           const paginatedItems = students.slice(start, end);
 
           paginatedItems.forEach((student) => {
-            const row = `<tr>
-                        <td>${student.id}</td>
-                        <td>${student.name}</td>
-                        <td>${student.phone}</td>
-                        <td>${student.email}</td>
-                        <td>${student.Tamil}</td>
-                        <td>${student.English}</td>
-                        <td>${student.Science}</td>
-                        <td>${student.Maths}</td>
-                        <td>${student.Social}</td>
-                        <td>${student.average}</td>
-                        <td>${student.total}</td>
-                        <td>${student.grade}</td>
-                        <td>${student.comments || "-"}</td>
-                        <td>${student.gender}</td>
-                        <td>${student.standard}</td>
-                        <td>${student.createdAt}</td>
-                        <td>${student.updatedAt || "None"}</td>
-                        <td>
-                            <button>Edit</button>
-                            <button>Delete</button>
-                        </td>
-                    </tr>`;
-            tableBody.innerHTML += row;
+            const row = document.createElement("tr");
+            row.innerHTML = `
+              <td>${student.id}</td>
+              <td>${student.name}</td>
+              <td>${student.phone}</td>
+              <td>${student.email}</td>
+              <td>${student.Tamil}</td>
+              <td>${student.English}</td>
+              <td>${student.Science}</td>
+              <td>${student.Maths}</td>
+              <td>${student.Social}</td>
+              <td>${student.average}</td>
+              <td>${student.total}</td>
+              <td>${student.grade}</td>
+              <td>${student.comments || "-"}</td>
+              <td>${student.gender}</td>
+              <td>${student.standard}</td>
+              <td>${student.createdAt}</td>
+              <td>${student.updatedAt || "None"}</td>
+              <td>
+                  <button class="edit-btn">Edit</button>
+                  <button class="delete-btn">Delete</button>
+              </td>
+            `;
+            studentTableBody.appendChild(row);
           });
         }
 
@@ -172,6 +173,14 @@
 
         addStudentBtn.addEventListener("click", function () {
           window.location.href = "AddStudent.html";
+        });
+
+        studentTableBody.addEventListener("click", function (event) {
+          if (event.target.classList.contains("edit-btn")) {
+            const row = event.target.closest("tr");
+            const studentId = row.children[0].textContent.trim();
+            window.location.href = `editstudent.html?id=${studentId}`;
+          }
         });
 
         fetchStudents();
