@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="https://www.gstatic.com/charts/loader.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css"
+    />
+    <style>
+      .accordion > div.ui-accordion-content {
+        padding: 6px 6px 6px 6px;
+      }
+
+      .dashboard {
+        padding: 12px;
+        white-space: nowrap;
+      }
+
+      .dashboard > div {
+        display: inline-block;
+        padding: 12px;
+        vertical-align: top;
+      }
+
+      .selectable {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+      }
+
+      .selectable li {
+        background-color: #f6f6f6;
+        border: 1px solid #c5c5c5;
+        cursor: pointer;
+        font-size: 8pt;
+        margin-top: 2px;
+        padding: 6px 8px 6px 8px;
+      }
+
+      .selectable .ui-selecting {
+        background-color: #99ccff;
+        border: 1px solid #809fff;
+      }
+
+      .selectable .ui-selected {
+        background-color: #007fff;
+        border: 1px solid #003eff;
+        color: #ffffff;
+      }
+
+      .ui-button-icon-only {
+        float: right;
+        height: 18px;
+        margin: 0px;
+        min-width: 18px;
+        width: 18px;
+        z-index: 1;
+      }
+
+      .ui-widget {
+        font-size: 8pt;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="dashboard">
+      <div class="accordion">
+        <h3>
+          <span>Filter&nbsp;</span>
+          <button
+            class="button-reset ui-button ui-widget ui-corner-all ui-button-icon-only"
+            title="Clear filter..."
+          >
+            <span class="ui-icon ui-icon-close"></span>
+          </button>
+        </h3>
+        <div><ul class="selectable"></ul></div>
+      </div>
+      <div id="chart_div"></div>
+    </div>
+    <script>
+      const values = [{ val1: 1 }, { val2: 3 }];
+      google.charts
+        .load("current", {
+          packages: ["corechart", "controls"],
+        })
+        .then(function () {
+          var data = google.visualization.arrayToDataTable([
+            ["Filter", "Category"],
+            ["Men", values[0].val1],
+            ["Women", values[1].val2],
+          ]);
+
+          var pieChart = new google.visualization.ChartWrapper({
+            chartType: "ColumnChart",
+            containerId: "chart_div",
+            dataTable: data,
+            options: {
+              chartArea: {
+                width: "100%",
+                height: "100%",
+              },
+              width: 300,
+              height: 300,
+              pieSliceText: "value",
+              legend: "right",
+            },
+          });
+
+          google.visualization.events.addOneTimeListener(
+            pieChart,
+            "ready",
+            function () {
+              var filterValues = data.getDistinctValues(0);
+              $.each(filterValues, function (index, value) {
+                $(".selectable").append("<li>" + value + "</li>");
+              });
+              $(".accordion").accordion({
+                active: false,
+                create: function () {
+                  $(".selectable").selectable({
+                    filter: "*",
+                    stop: filterChart,
+                  });
+                },
+                collapsible: true,
+                heightStyle: "content",
+              });
+
+              $(".button-reset").button();
+              $(".button-reset").button("disable");
+              $(".button-reset").on("click", clearFilter);
+            }
+          );
+
+          function filterChart() {
+            var chartView = {};
+            var selectedValues = [];
+            $(".selectable li.ui-selected").each(function (index, selected) {
+              selectedValues.push(selected.innerHTML);
+            });
+
+            if (selectedValues.length > 0) {
+              $(".selectable")
+                .closest(".accordion")
+                .find(".button-reset")
+                .button("enable");
+              chartView.rows = data.getFilteredRows([
+                {
+                  column: 0,
+                  test: function (value) {
+                    return selectedValues.indexOf(value) > -1;
+                  },
+                },
+              ]);
+            }
+
+            pieChart.setView(chartView);
+            pieChart.draw();
+          }
+
+          function clearFilter(sender) {
+            var accordion;
+
+            sender.preventDefault();
+            sender.stopPropagation();
+
+            accordion = $(sender.target).closest(".accordion");
+            accordion.find(".selectable li").removeClass("ui-selected");
+            accordion.accordion("option", "active", false);
+            $(sender.target).closest("button").button("disable");
+            filterChart();
+
+            return false;
+          }
+
+          pieChart.draw();
+        });
+    </script>
+  </body>
+</html>
