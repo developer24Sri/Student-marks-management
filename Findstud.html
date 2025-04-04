@@ -1,0 +1,40 @@
+document.getElementById("searchInput").addEventListener("input", function () {
+  const query = this.value.trim();
+  if (query === "") {
+    displayStudents(); // Show all if input is empty
+    updatePagination();
+    return;
+  }
+
+  const matchedStudent = students.find((student) => student.id.toString() === query);
+
+  studentTableBody.innerHTML = ""; // Clear table
+
+  if (matchedStudent) {
+    const row = document.createElement("tr");
+    row.innerHTML = `
+      <td>${matchedStudent.id}</td>
+      <td>${matchedStudent.name}</td>
+      <td>${matchedStudent.phone}</td>
+      <td>${matchedStudent.email}</td>
+      <td>${matchedStudent.Tamil}</td>
+      <td>${matchedStudent.English}</td>
+      <td>${matchedStudent.Science}</td>
+      <td>${matchedStudent.Maths}</td>
+      <td>${matchedStudent.Social}</td>
+      <td>${matchedStudent.average}</td>
+      <td>${matchedStudent.total}</td>
+      <td>${matchedStudent.grade}</td>
+      <td>${matchedStudent.comments || "-"}</td>
+      <td>${matchedStudent.gender}</td>
+      <td>${matchedStudent.standard}</td>
+      <td>${matchedStudent.createdAt}</td>
+      <td>${matchedStudent.updatedAt || "None"}</td>
+      <td>
+        <button class="edit-btn">Edit</button>
+        <button class="delete-btn">Delete</button>
+      </td>
+    `;
+    studentTableBody.appendChild(row);
+  }
+});
