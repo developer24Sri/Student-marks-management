@@ -9,125 +9,277 @@
         font-family: Arial, sans-serif;
         margin: 20px;
       }
-      form {
-        width: 50%;
-        margin: auto;
+      .search-bar {
+        margin-bottom: 20px;
       }
-      label,
-      input {
-        display: block;
-        margin-top: 10px;
+      table {
         width: 100%;
+        border-collapse: collapse;
+        margin-top: 10px;
       }
-      button {
+      th,
+      td {
+        border: 1px solid #ddd;
+        padding: 8px;
+      }
+      th {
+        background-color: #f4f4f4;
+      }
+      .edit-form {
         margin-top: 20px;
-        padding: 10px;
-        cursor: pointer;
+        padding: 15px;
+        border: 1px solid #ccc;
+        display: none;
+      }
+      .edit-form input {
+        margin-bottom: 10px;
+        padding: 5px;
+        display: block;
+        width: 300px;
+      }
+      .edit-form button {
+        padding: 5px 10px;
+      }
+
+      /* Modal Styles */
+      #deleteModal {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.5);
+      }
+      #deleteModal .modal-content {
+        background: white;
+        padding: 20px;
+        max-width: 400px;
+        margin: 100px auto;
+        border-radius: 10px;
+        text-align: center;
+      }
+      #deleteModal button {
+        margin: 10px;
+        padding: 8px 15px;
       }
     </style>
   </head>
   <body>
-    <h2>Edit Student Data</h2>
-    <form id="editStudentForm">
-      <label>ID: <input type="text" id="id" disabled /></label>
-      <label>Name: <input type="text" id="name" /></label>
-      <label>Phone: <input type="text" id="phone" /></label>
-      <label>Email: <input type="email" id="email" /></label>
-      <label>Tamil: <input type="number" id="tamil" /></label>
-      <label>English: <input type="number" id="english" /></label>
-      <label>Science: <input type="number" id="science" /></label>
-      <label>Maths: <input type="number" id="maths" /></label>
-      <label>Social: <input type="number" id="social" /></label>
-      <label>Gender: <input type="text" id="gender" /></label>
-      <label>Standard: <input type="text" id="standard" /></label>
-      <button type="submit">Update Student</button>
-    </form>
+    <h2>Edit Student</h2>
+
+    <div class="search-bar">
+      <input type="number" id="searchId" placeholder="Enter Student ID" />
+      <button id="searchBtn">Search</button>
+    </div>
+
+    <table id="studentTable" style="display: none">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Name</th>
+          <th>Phone</th>
+          <th>Email</th>
+          <th>Tamil</th>
+          <th>English</th>
+          <th>Science</th>
+          <th>Maths</th>
+          <th>Social</th>
+          <th>Average</th>
+          <th>Total</th>
+          <th>Grade</th>
+          <th>Gender</th>
+          <th>Standard</th>
+          <th>Created At</th>
+          <th>Updated At</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+
+    <div class="edit-form" id="editForm">
+      <h3>Edit Student Info</h3>
+      <form id="studentEditForm">
+        <input type="hidden" id="editId" />
+        <input type="text" id="editName" placeholder="Name" />
+        <input type="text" id="editPhone" placeholder="Phone" />
+        <input type="email" id="editEmail" placeholder="Email" />
+        <input type="number" id="editTamil" placeholder="Tamil" />
+        <input type="number" id="editEnglish" placeholder="English" />
+        <input type="number" id="editScience" placeholder="Science" />
+        <input type="number" id="editMaths" placeholder="Maths" />
+        <input type="number" id="editSocial" placeholder="Social" />
+        <input type="text" id="editGender" placeholder="Gender" />
+        <input type="text" id="editStandard" placeholder="Standard" />
+        <button type="submit">Confirm</button>
+      </form>
+    </div>
+
+    <!-- Delete Modal -->
+    <div id="deleteModal">
+      <div class="modal-content">
+        <p id="modalText"></p>
+        <button id="confirmDelete">Yes, Delete</button>
+        <button id="cancelDelete">Cancel</button>
+      </div>
+    </div>
 
     <script>
-      document.addEventListener("DOMContentLoaded", async function () {
-        const urlParams = new URLSearchParams(window.location.search);
-        const studentId = urlParams.get("id");
-        console.log(studentId);
-        if (!studentId) {
-          alert("Invalid student ID");
-          window.location.href = "show.html";
+      const searchBtn = document.getElementById("searchBtn");
+      const searchIdInput = document.getElementById("searchId");
+      const studentTable = document.getElementById("studentTable");
+      const studentTableBody = studentTable.querySelector("tbody");
+      const editForm = document.getElementById("editForm");
+      const studentEditForm = document.getElementById("studentEditForm");
+
+      const deleteModal = document.getElementById("deleteModal");
+      const modalText = document.getElementById("modalText");
+      const confirmDeleteBtn = document.getElementById("confirmDelete");
+      const cancelDeleteBtn = document.getElementById("cancelDelete");
+
+      let currentStudent = null;
+      let deleteStudentId = null;
+
+      searchBtn.addEventListener("click", async () => {
+        const id = searchIdInput.value.trim();
+        if (!id) {
+          alert("Please enter a valid student ID");
           return;
         }
 
-        // Fetching student data
+        try {
+          const response = await fetch(`http://localhost:3000/students/${id}`);
+          if (!response.ok) throw new Error("Student not found");
+
+          const student = await response.json();
+          currentStudent = student;
+
+          studentTable.style.display = "table";
+          studentTableBody.innerHTML = `
+            <tr>
+              <td>${student.id}</td>
+              <td>${student.name}</td>
+              <td>${student.phone}</td>
+              <td>${student.email}</td>
+              <td>${student.Tamil}</td>
+              <td>${student.English}</td>
+              <td>${student.Science}</td>
+              <td>${student.Maths}</td>
+              <td>${student.Social}</td>
+              <td>${student.average}</td>
+              <td>${student.total}</td>
+              <td>${student.grade}</td>
+              <td>${student.gender}</td>
+              <td>${student.standard}</td>
+              <td>${student.createdAt}</td>
+              <td>${student.updatedAt || "None"}</td>
+              <td>
+                <button class="edit-btn">Edit</button>
+                <button class="delete-btn">Delete</button>
+              </td>
+            </tr>
+          `;
+
+          document.querySelector(".edit-btn").addEventListener("click", () => {
+            populateEditForm(student);
+          });
+
+          document
+            .querySelector(".delete-btn")
+            .addEventListener("click", () => {
+              deleteStudentId = currentStudent.id;
+              modalText.textContent = `Are you sure you want to delete Student ID: ${deleteStudentId}?`;
+              deleteModal.style.display = "block";
+            });
+        } catch (error) {
+          studentTable.style.display = "none";
+          editForm.style.display = "none";
+          alert("Student not found or error fetching data.");
+          console.error(error);
+        }
+      });
+
+      function populateEditForm(student) {
+        document.getElementById("editId").value = student.id;
+        document.getElementById("editName").value = student.name;
+        document.getElementById("editPhone").value = student.phone;
+        document.getElementById("editEmail").value = student.email;
+        document.getElementById("editTamil").value = student.Tamil;
+        document.getElementById("editEnglish").value = student.English;
+        document.getElementById("editScience").value = student.Science;
+        document.getElementById("editMaths").value = student.Maths;
+        document.getElementById("editSocial").value = student.Social;
+        document.getElementById("editGender").value = student.gender;
+        document.getElementById("editStandard").value = student.standard;
+
+        editForm.style.display = "block";
+      }
+
+      studentEditForm.addEventListener("submit", async (e) => {
+        e.preventDefault();
+
+        const id = document.getElementById("editId").value;
+
+        const updatedData = {
+          name: document.getElementById("editName").value,
+          phone: document.getElementById("editPhone").value,
+          email: document.getElementById("editEmail").value,
+          Tamil: parseInt(document.getElementById("editTamil").value),
+          English: parseInt(document.getElementById("editEnglish").value),
+          Science: parseInt(document.getElementById("editScience").value),
+          Maths: parseInt(document.getElementById("editMaths").value),
+          Social: parseInt(document.getElementById("editSocial").value),
+          gender: document.getElementById("editGender").value,
+          standard: document.getElementById("editStandard").value,
+          updatedAt: new Date().toLocaleString(),
+        };
+
+        try {
+          const response = await fetch(`http://localhost:3000/students/${id}`, {
+            method: "PATCH",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(updatedData),
+          });
+
+          if (!response.ok) throw new Error("Update failed");
+
+          alert("Student updated successfully!");
+          editForm.style.display = "none";
+          searchBtn.click(); // Refresh student info
+        } catch (error) {
+          console.error(error);
+          alert("Error updating student.");
+        }
+      });
+
+      cancelDeleteBtn.addEventListener("click", () => {
+        deleteModal.style.display = "none";
+        deleteStudentId = null;
+      });
+
+      confirmDeleteBtn.addEventListener("click", async () => {
+        if (!deleteStudentId) return;
+
         try {
           const response = await fetch(
-            `http://localhost:3000/students/${studentId}`,
+            `http://localhost:3000/students/${deleteStudentId}`,
             {
-              method: "GET",
-              headers: { "Content-Type": "application/json" },
+              method: "DELETE",
             }
           );
-          const student = await response.json();
-          if (!student) {
-            alert("Student not found");
-            window.location.href = "show.html";
-            return;
-          }
 
-          // Populate form with student data
-          document.getElementById("id").value = student.id;
-          document.getElementById("name").value = student.name;
-          document.getElementById("phone").value = student.phone;
-          document.getElementById("email").value = student.email;
-          document.getElementById("tamil").value = student.Tamil;
-          document.getElementById("english").value = student.English;
-          document.getElementById("science").value = student.Science;
-          document.getElementById("maths").value = student.Maths;
-          document.getElementById("social").value = student.Social;
-          document.getElementById("gender").value = student.gender;
-          document.getElementById("standard").value = student.standard;
-        } catch (error) {
-          console.error("Error fetching student data:", error);
+          if (!response.ok) throw new Error("Delete failed");
+
+          alert(`Student ID ${deleteStudentId} deleted successfully.`);
+          window.location.href = "show.html";
+        } catch (err) {
+          alert("Error deleting student.");
+          console.error(err);
+        } finally {
+          deleteModal.style.display = "none";
+          deleteStudentId = null;
         }
-
-        // Handle form submission
-        document
-          .getElementById("editStudentForm")
-          .addEventListener("submit", async function (event) {
-            event.preventDefault(); // Prevent the form from reloading the page
-
-            const updatedStudent = {
-              name: document.getElementById("name").value,
-              phone: document.getElementById("phone").value,
-              email: document.getElementById("email").value,
-              Tamil: parseInt(document.getElementById("tamil").value),
-              English: parseInt(document.getElementById("english").value),
-              Science: parseInt(document.getElementById("science").value),
-              Maths: parseInt(document.getElementById("maths").value),
-              Social: parseInt(document.getElementById("social").value),
-              gender: document.getElementById("gender").value,
-              standard: document.getElementById("standard").value,
-              updatedAt: new Date().toISOString(), // Add updated timestamp
-            };
-
-            try {
-              const response = await fetch(
-                `http://localhost:3000/students/${studentId}`,
-                {
-                  method: "PATCH", // Use PATCH for updating only the modified fields
-                  headers: {
-                    "Content-Type": "application/json",
-                  },
-                  body: JSON.stringify(updatedStudent),
-                }
-              );
-
-              if (response.ok) {
-                alert("Student data updated successfully!");
-                window.location.href = "show.html"; // Redirect back to the show data page
-              } else {
-                alert("Failed to update student data.");
-              }
-            } catch (error) {
-              console.error("Error updating student data:", error);
-            }
-          });
       });
     </script>
   </body>

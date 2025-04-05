@@ -27,21 +27,35 @@
         margin-top: 20px;
         text-align: center;
       }
-      .pagination button {
+      .pagination button,
+      select {
         margin: 5px;
         padding: 5px 10px;
+        cursor: pointer;
       }
       .top-bar {
         display: flex;
         justify-content: space-between;
         align-items: center;
       }
+      .controls {
+        margin-top: 10px;
+        display: flex;
+        gap: 10px;
+        align-items: center;
+      }
+      .controls input {
+        padding: 6px;
+      }
     </style>
   </head>
   <body>
     <div class="top-bar">
       <h2>Student Management System</h2>
-      <button class="add-student">Add Student</button>
+      <div>
+        <button class="add-student">Add Student</button>
+        <button id="editBtn">Edit</button>
+      </div>
     </div>
 
     <table id="studentTable">
@@ -64,28 +78,41 @@
           <th>Standard</th>
           <th>Created At</th>
           <th>Updated At</th>
-          <th>Actions</th>
         </tr>
       </thead>
       <tbody></tbody>
     </table>
 
     <div class="pagination">
+      <button class="go-to-first">Go to First</button>
       <button class="prev-page">Prev</button>
       <span id="pageNumbers"></span>
       <button class="next-page">Next</button>
+      <button class="go-to-last">Go to Last</button>
+      <label>
+        Rows per page:
+        <select id="rowsPerPage">
+          <option value="5">5</option>
+          <option value="10" selected>10</option>
+          <option value="15">15</option>
+          <option value="20">20</option>
+        </select>
+      </label>
     </div>
 
     <script>
       document.addEventListener("DOMContentLoaded", function () {
         const prevPageBtn = document.querySelector(".prev-page");
         const nextPageBtn = document.querySelector(".next-page");
+        const goToFirstBtn = document.querySelector(".go-to-first");
+        const goToLastBtn = document.querySelector(".go-to-last");
         const addStudentBtn = document.querySelector(".add-student");
         const studentTableBody = document.querySelector("#studentTable tbody");
+        const rowsPerPageSelect = document.getElementById("rowsPerPage");
 
         let students = [];
         let currentPage = 1;
-        const rowsPerPage = 10;
+        let rowsPerPage = parseInt(rowsPerPageSelect.value);
 
         async function fetchStudents() {
           try {
@@ -95,9 +122,8 @@
                 "Content-Type": "application/json",
               },
             });
-            if (!response.ok) {
-              throw new Error("Failed to fetch students");
-            }
+            if (!response.ok) throw new Error("Failed to fetch students");
+
             students = await response.json();
             displayStudents();
             updatePagination();
@@ -132,10 +158,6 @@
               <td>${student.standard}</td>
               <td>${student.createdAt}</td>
               <td>${student.updatedAt || "None"}</td>
-              <td>
-                  <button class="edit-btn">Edit</button>
-                  <button class="delete-btn">Delete</button>
-              </td>
             `;
             studentTableBody.appendChild(row);
           });
@@ -171,16 +193,30 @@
           }
         });
 
+        goToFirstBtn.addEventListener("click", function () {
+          currentPage = 1;
+          displayStudents();
+        });
+
+        goToLastBtn.addEventListener("click", function () {
+          currentPage = Math.ceil(students.length / rowsPerPage);
+          displayStudents();
+        });
+
+        rowsPerPageSelect.addEventListener("change", function () {
+          rowsPerPage = parseInt(this.value);
+          currentPage = 1;
+          displayStudents();
+          updatePagination();
+        });
+
         addStudentBtn.addEventListener("click", function () {
           window.location.href = "AddStudent.html";
         });
 
-        studentTableBody.addEventListener("click", function (event) {
-          if (event.target.classList.contains("edit-btn")) {
-            const row = event.target.closest("tr");
-            const studentId = row.children[0].textContent.trim();
-            window.location.href = `editstudent.html?id=${studentId}`;
-          }
+        // Redirect to edit page (new functionality)
+        document.getElementById("editBtn").addEventListener("click", () => {
+          window.location.href = "editstudent.html";
         });
 
         fetchStudents();

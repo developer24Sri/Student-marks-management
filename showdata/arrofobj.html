@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Google Column Chart</title>
+    <script
+      type="text/javascript"
+      src="https://www.gstatic.com/charts/loader.js"
+    ></script>
+    <script type="text/javascript">
+      // Load Google Charts
+      google.charts.load("current", { packages: ["corechart", "bar"] });
+      google.charts.setOnLoadCallback(drawChart);
+
+      function drawChart() {
+        // Sample count data
+        const counts = {
+          excellent: 4,
+          good: 4,
+          ok: 2,
+          average: 3,
+          pass: 2,
+          "fail and fair": 3,
+        };
+
+        // Convert the counts object to a format suitable for Google Charts
+        let chartData = [["Performance", "Count", { role: "style" }]];
+        let colors = [
+          "#4CAF50",
+          "#2196F3",
+          "#FFC107",
+          "#FF5722",
+          "#9C27B0",
+          "#F44336",
+        ];
+
+        let i = 0;
+        for (let key in counts) {
+          chartData.push([key, counts[key], colors[i]]);
+          i++;
+        }
+
+        // Create DataTable
+        var data = google.visualization.arrayToDataTable(chartData);
+
+        // Set chart options
+        var options = {
+          title: "Performance Distribution",
+          chartArea: { width: "60%" },
+          hAxis: {
+            title: "Performance Category",
+            minValue: 0,
+          },
+          vAxis: {
+            title: "Count",
+          },
+        };
+
+        // Draw the chart
+        var chart = new google.visualization.ColumnChart(
+          document.getElementById("chart_div")
+        );
+        chart.draw(data, options);
+      }
+    </script>
+  </head>
+  <body>
+    <h2>Google Column Chart - Performance Count</h2>
+    <div id="chart_div" style="width: 100%; height: 500px"></div>
+  </body>
+</html>
