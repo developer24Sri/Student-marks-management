@@ -1,0 +1,719 @@
+{
+  "StudentsGrades": {
+    "overallGrades": {
+      "0": {
+        "Excellent": {
+          "0": {
+            "Id": 25021,
+            "name": "Amita Das",
+            "phone": 5556667777,
+            "email": "amitadas@example.com",
+            "Tamil": 80,
+            "English": 85,
+            "Science": 82,
+            "Maths": 80,
+            "Social": 90,
+            "average": 83.4,
+            "total": 417,
+            "grade": "Excellent",
+            "comments": "Excellent performance in all subjects!",
+            "gender": "female",
+            "standard": "10th",
+            "created_at": "10/01/2019",
+            "updated_at": "none",
+            "id": "7a7d"
+          },
+          "1": {
+            "Id": 25025,
+            "name": "Rita",
+            "phone": 5556667437,
+            "email": "amitadas@example.com",
+            "Tamil": 80,
+            "English": 85,
+            "Science": 82,
+            "Maths": 80,
+            "Social": 90,
+            "average": 83.4,
+            "total": 417,
+            "grade": "Excellent",
+            "comments": "Excellent performance in all subjects!",
+            "gender": "female",
+            "standard": "10th",
+            "created_at": "10/01/2019",
+            "updated_at": "none",
+            "id": "7a7d"
+          },
+          "2": {
+            "Id": 25061,
+            "name": "uma",
+            "phone": 5556667777,
+            "email": "amitadas@example.com",
+            "Tamil": 80,
+            "English": 85,
+            "Science": 82,
+            "Maths": 80,
+            "Social": 90,
+            "average": 83.4,
+            "total": 417,
+            "grade": "Excellent",
+            "comments": "Excellent performance in all subjects!",
+            "gender": "female",
+            "standard": "10th",
+            "created_at": "10/01/2019",
+            "updated_at": "none",
+            "id": "7a7d"
+          },
+          "4": {
+            "Id": 25034,
+            "name": "Revathi",
+            "phone": 5556698777,
+            "email": "amitadas@example.com",
+            "Tamil": 80,
+            "English": 85,
+            "Science": 82,
+            "Maths": 80,
+            "Social": 90,
+            "average": 83.4,
+            "total": 417,
+            "grade": "Excellent",
+            "comments": "Excellent performance in all subjects!",
+            "gender": "female",
+            "standard": "10th",
+            "created_at": "10/01/2019",
+            "updated_at": "none",
+            "id": "7a7d"
+          }
+        }
+      },
+      "1": {
+        "Very Good": {
+          "0": {
+            "Id": 25022,
+            "name": "Ravi Kumar",
+            "phone": 5551234567,
+            "email": "ravikumar@example.com",
+            "Tamil": 75,
+            "English": 78,
+            "Science": 77,
+            "Maths": 76,
+            "Social": 79,
+            "average": 77,
+            "total": 385,
+            "grade": "Very Good",
+            "comments": "Very good academic consistency.",
+            "gender": "male",
+            "standard": "9th",
+            "created_at": "12/03/2020",
+            "updated_at": "none",
+            "id": "8b2f"
+          }
+        }
+      },
+      "2": {
+        "Good": {
+          "0": {
+            "Id": 25023,
+            "name": "Sneha Reddy",
+            "phone": 5557891234,
+            "email": "sneha@example.com",
+            "Tamil": 70,
+            "English": 68,
+            "Science": 72,
+            "Maths": 70,
+            "Social": 69,
+            "average": 69.8,
+            "total": 349,
+            "grade": "Good",
+            "comments": "Good performance overall.",
+            "gender": "female",
+            "standard": "8th",
+            "created_at": "05/07/2021",
+            "updated_at": "none",
+            "id": "9c3g"
+          }
+        }
+      },
+      "3": {
+        "Ok": {
+          "0": {
+            "Id": 25024,
+            "name": "Rahul Dev",
+            "phone": 5553217890,
+            "email": "rahul@example.com",
+            "Tamil": 60,
+            "English": 62,
+            "Science": 64,
+            "Maths": 61,
+            "Social": 63,
+            "average": 62,
+            "total": 310,
+            "grade": "Ok",
+            "comments": "Can do better with more effort.",
+            "gender": "male",
+            "standard": "7th",
+            "created_at": "08/11/2021",
+            "updated_at": "none",
+            "id": "3d4h"
+          }
+        }
+      },
+      "4": {
+        "Fair and Fail": {
+          "0": {
+            "Id": 25025,
+            "name": "Lakshmi Menon",
+            "phone": 5554329876,
+            "email": "lakshmi@example.com",
+            "Tamil": 45,
+            "English": 50,
+            "Science": 48,
+            "Maths": 49,
+            "Social": 47,
+            "average": 47.8,
+            "total": 239,
+            "grade": "Fair and Fail",
+            "comments": "Needs improvement across subjects.",
+            "gender": "female",
+            "standard": "6th",
+            "created_at": "01/02/2022",
+            "updated_at": "none",
+            "id": "6f5k"
+          }
+        }
+      },
+      "5": {
+        "Pass": {
+          "0": {
+            "Id": 25026,
+            "name": "Deepak Rao",
+            "phone": 5559876543,
+            "email": "deepak@example.com",
+            "Tamil": 52,
+            "English": 55,
+            "Science": 54,
+            "Maths": 53,
+            "Social": 56,
+            "average": 54,
+            "total": 270,
+            "grade": "Pass",
+            "comments": "Just managed to pass.",
+            "gender": "male",
+            "standard": "9th",
+            "created_at": "09/10/2022",
+            "updated_at": "none",
+            "id": "7g6l"
+          }
+        }
+      },
+      "6": {
+        "Fail and Fair": {
+          "0": {
+            "Id": 25027,
+            "name": "Kavya S",
+            "phone": 5556543210,
+            "email": "kavya@example.com",
+            "Tamil": 35,
+            "English": 30,
+            "Science": 33,
+            "Maths": 32,
+            "Social": 34,
+            "average": 32.8,
+            "total": 164,
+            "grade": "Fail and Fair",
+            "comments": "Needs serious attention.",
+            "gender": "female",
+            "standard": "8th",
+            "created_at": "03/05/2023",
+            "updated_at": "none",
+            "id": "4h7m"
+          }
+        }
+      }
+    },
+
+    "overallGender": {
+      "0": {
+        "male": {
+          "0": {
+            "Excellent": {
+              "0": {
+                "Id": 25021,
+                "name": "Amita Das",
+                "phone": 5556667777,
+                "email": "amitadas@example.com",
+                "Tamil": 80,
+                "English": 85,
+                "Science": 82,
+                "Maths": 80,
+                "Social": 90,
+                "average": 83.4,
+                "total": 417,
+                "grade": "Excellent",
+                "comments": "Excellent performance in all subjects!",
+                "gender": "female",
+                "standard": "10th",
+                "created_at": "10/01/2019",
+                "updated_at": "none",
+                "id": "7a7d"
+              },
+              "1": {
+                "Id": 25025,
+                "name": "Rita",
+                "phone": 5556667437,
+                "email": "amitadas@example.com",
+                "Tamil": 80,
+                "English": 85,
+                "Science": 82,
+                "Maths": 80,
+                "Social": 90,
+                "average": 83.4,
+                "total": 417,
+                "grade": "Excellent",
+                "comments": "Excellent performance in all subjects!",
+                "gender": "female",
+                "standard": "10th",
+                "created_at": "10/01/2019",
+                "updated_at": "none",
+                "id": "7a7d"
+              },
+              "2": {
+                "Id": 25061,
+                "name": "uma",
+                "phone": 5556667777,
+                "email": "amitadas@example.com",
+                "Tamil": 80,
+                "English": 85,
+                "Science": 82,
+                "Maths": 80,
+                "Social": 90,
+                "average": 83.4,
+                "total": 417,
+                "grade": "Excellent",
+                "comments": "Excellent performance in all subjects!",
+                "gender": "female",
+                "standard": "10th",
+                "created_at": "10/01/2019",
+                "updated_at": "none",
+                "id": "7a7d"
+              },
+              "4": {
+                "Id": 25034,
+                "name": "Revathi",
+                "phone": 5556698777,
+                "email": "amitadas@example.com",
+                "Tamil": 80,
+                "English": 85,
+                "Science": 82,
+                "Maths": 80,
+                "Social": 90,
+                "average": 83.4,
+                "total": 417,
+                "grade": "Excellent",
+                "comments": "Excellent performance in all subjects!",
+                "gender": "male",
+                "standard": "10th",
+                "created_at": "10/01/2019",
+                "updated_at": "none",
+                "id": "7a7d"
+              }
+            }
+          },
+          "1": {
+            "Very Good": {
+              "0": {
+                "Id": 25022,
+                "name": "Ravi Kumar",
+                "phone": 5551234567,
+                "email": "ravikumar@example.com",
+                "Tamil": 75,
+                "English": 78,
+                "Science": 77,
+                "Maths": 76,
+                "Social": 79,
+                "average": 77,
+                "total": 385,
+                "grade": "Very Good",
+                "comments": "Very good academic consistency.",
+                "gender": "male",
+                "standard": "9th",
+                "created_at": "12/03/2020",
+                "updated_at": "none",
+                "id": "8b2f"
+              }
+            }
+          },
+          "2": {
+            "Good": {
+              "0": {
+                "Id": 25023,
+                "name": "Sneha Reddy",
+                "phone": 5557891234,
+                "email": "sneha@example.com",
+                "Tamil": 70,
+                "English": 68,
+                "Science": 72,
+                "Maths": 70,
+                "Social": 69,
+                "average": 69.8,
+                "total": 349,
+                "grade": "Good",
+                "comments": "Good performance overall.",
+                "gender": "male",
+                "standard": "8th",
+                "created_at": "05/07/2021",
+                "updated_at": "none",
+                "id": "9c3g"
+              }
+            }
+          },
+          "3": {
+            "Ok": {
+              "0": {
+                "Id": 25024,
+                "name": "Rahul Dev",
+                "phone": 5553217890,
+                "email": "rahul@example.com",
+                "Tamil": 60,
+                "English": 62,
+                "Science": 64,
+                "Maths": 61,
+                "Social": 63,
+                "average": 62,
+                "total": 310,
+                "grade": "Ok",
+                "comments": "Can do better with more effort.",
+                "gender": "male",
+                "standard": "7th",
+                "created_at": "08/11/2021",
+                "updated_at": "none",
+                "id": "3d4h"
+              }
+            }
+          },
+          "4": {
+            "Fair and Fail": {
+              "0": {
+                "Id": 25025,
+                "name": "Lakshmi Menon",
+                "phone": 5554329876,
+                "email": "lakshmi@example.com",
+                "Tamil": 45,
+                "English": 50,
+                "Science": 48,
+                "Maths": 49,
+                "Social": 47,
+                "average": 47.8,
+                "total": 239,
+                "grade": "Fair and Fail",
+                "comments": "Needs improvement across subjects.",
+                "gender": "male",
+                "standard": "6th",
+                "created_at": "01/02/2022",
+                "updated_at": "none",
+                "id": "6f5k"
+              }
+            }
+          },
+          "5": {
+            "Pass": {
+              "0": {
+                "Id": 25026,
+                "name": "Deepak Rao",
+                "phone": 5559876543,
+                "email": "deepak@example.com",
+                "Tamil": 52,
+                "English": 55,
+                "Science": 54,
+                "Maths": 53,
+                "Social": 56,
+                "average": 54,
+                "total": 270,
+                "grade": "Pass",
+                "comments": "Just managed to pass.",
+                "gender": "male",
+                "standard": "9th",
+                "created_at": "09/10/2022",
+                "updated_at": "none",
+                "id": "7g6l"
+              }
+            }
+          },
+          "6": {
+            "Fail and Fair": {
+              "0": {
+                "Id": 25027,
+                "name": "Kavya S",
+                "phone": 5556543210,
+                "email": "kavya@example.com",
+                "Tamil": 35,
+                "English": 30,
+                "Science": 33,
+                "Maths": 32,
+                "Social": 34,
+                "average": 32.8,
+                "total": 164,
+                "grade": "Fail and Fair",
+                "comments": "Needs serious attention.",
+                "gender": "male",
+                "standard": "8th",
+                "created_at": "03/05/2023",
+                "updated_at": "none",
+                "id": "4h7m"
+              }
+            }
+          }
+        }
+      },
+      "1": {
+        "female": {
+          "0": {
+            "Excellent": {
+              "0": {
+                "Id": 25021,
+                "name": "Amita Das",
+                "phone": 5556667777,
+                "email": "amitadas@example.com",
+                "Tamil": 80,
+                "English": 85,
+                "Science": 82,
+                "Maths": 80,
+                "Social": 90,
+                "average": 83.4,
+                "total": 417,
+                "grade": "Excellent",
+                "comments": "Excellent performance in all subjects!",
+                "gender": "female",
+                "standard": "10th",
+                "created_at": "10/01/2019",
+                "updated_at": "none",
+                "id": "7a7d"
+              },
+              "1": {
+                "Id": 25025,
+                "name": "Rita",
+                "phone": 5556667437,
+                "email": "amitadas@example.com",
+                "Tamil": 80,
+                "English": 85,
+                "Science": 82,
+                "Maths": 80,
+                "Social": 90,
+                "average": 83.4,
+                "total": 417,
+                "grade": "Excellent",
+                "comments": "Excellent performance in all subjects!",
+                "gender": "female",
+                "standard": "10th",
+                "created_at": "10/01/2019",
+                "updated_at": "none",
+                "id": "7a7d"
+              },
+              "2": {
+                "Id": 25061,
+                "name": "uma",
+                "phone": 5556667777,
+                "email": "amitadas@example.com",
+                "Tamil": 80,
+                "English": 85,
+                "Science": 82,
+                "Maths": 80,
+                "Social": 90,
+                "average": 83.4,
+                "total": 417,
+                "grade": "Excellent",
+                "comments": "Excellent performance in all subjects!",
+                "gender": "female",
+                "standard": "10th",
+                "created_at": "10/01/2019",
+                "updated_at": "none",
+                "id": "7a7d"
+              },
+              "4": {
+                "Id": 25034,
+                "name": "Revathi",
+                "phone": 5556698777,
+                "email": "amitadas@example.com",
+                "Tamil": 80,
+                "English": 85,
+                "Science": 82,
+                "Maths": 80,
+                "Social": 90,
+                "average": 83.4,
+                "total": 417,
+                "grade": "Excellent",
+                "comments": "Excellent performance in all subjects!",
+                "gender": "female",
+                "standard": "10th",
+                "created_at": "10/01/2019",
+                "updated_at": "none",
+                "id": "7a7d"
+              }
+            }
+          },
+          "1": {
+            "Very Good": {
+              "0": {
+                "Id": 25022,
+                "name": "Ravi Kumar",
+                "phone": 5551234567,
+                "email": "ravikumar@example.com",
+                "Tamil": 75,
+                "English": 78,
+                "Science": 77,
+                "Maths": 76,
+                "Social": 79,
+                "average": 77,
+                "total": 385,
+                "grade": "Very Good",
+                "comments": "Very good academic consistency.",
+                "gender": "female",
+                "standard": "9th",
+                "created_at": "12/03/2020",
+                "updated_at": "none",
+                "id": "8b2f"
+              }
+            }
+          },
+          "2": {
+            "Good": {
+              "0": {
+                "Id": 25023,
+                "name": "Sneha Reddy",
+                "phone": 5557891234,
+                "email": "sneha@example.com",
+                "Tamil": 70,
+                "English": 68,
+                "Science": 72,
+                "Maths": 70,
+                "Social": 69,
+                "average": 69.8,
+                "total": 349,
+                "grade": "Good",
+                "comments": "Good performance overall.",
+                "gender": "female",
+                "standard": "8th",
+                "created_at": "05/07/2021",
+                "updated_at": "none",
+                "id": "9c3g"
+              }
+            }
+          },
+          "3": {
+            "Ok": {
+              "0": {
+                "Id": 25024,
+                "name": "Rahul Dev",
+                "phone": 5553217890,
+                "email": "rahul@example.com",
+                "Tamil": 60,
+                "English": 62,
+                "Science": 64,
+                "Maths": 61,
+                "Social": 63,
+                "average": 62,
+                "total": 310,
+                "grade": "Ok",
+                "comments": "Can do better with more effort.",
+                "gender": "female",
+                "standard": "7th",
+                "created_at": "08/11/2021",
+                "updated_at": "none",
+                "id": "3d4h"
+              }
+            }
+          },
+          "4": {
+            "Fair and Fail": {
+              "0": {
+                "Id": 25025,
+                "name": "Lakshmi Menon",
+                "phone": 5554329876,
+                "email": "lakshmi@example.com",
+                "Tamil": 45,
+                "English": 50,
+                "Science": 48,
+                "Maths": 49,
+                "Social": 47,
+                "average": 47.8,
+                "total": 239,
+                "grade": "Fair and Fail",
+                "comments": "Needs improvement across subjects.",
+                "gender": "female",
+                "standard": "6th",
+                "created_at": "01/02/2022",
+                "updated_at": "none",
+                "id": "6f5k"
+              }
+            }
+          },
+          "5": {
+            "Pass": {
+              "0": {
+                "Id": 25026,
+                "name": "Deepak Rao",
+                "phone": 5559876543,
+                "email": "deepak@example.com",
+                "Tamil": 52,
+                "English": 55,
+                "Science": 54,
+                "Maths": 53,
+                "Social": 56,
+                "average": 54,
+                "total": 270,
+                "grade": "Pass",
+                "comments": "Just managed to pass.",
+                "gender": "female",
+                "standard": "9th",
+                "created_at": "09/10/2022",
+                "updated_at": "none",
+                "id": "7g6l"
+              }
+            }
+          },
+          "6": {
+            "Fail and Fair": {
+              "0": {
+                "Id": 25027,
+                "name": "Kavya S",
+                "phone": 5556543210,
+                "email": "kavya@example.com",
+                "Tamil": 35,
+                "English": 30,
+                "Science": 33,
+                "Maths": 32,
+                "Social": 34,
+                "average": 32.8,
+                "total": 164,
+                "grade": "Fail and Fair",
+                "comments": "Needs serious attention.",
+                "gender": "female",
+                "standard": "8th",
+                "created_at": "03/05/2023",
+                "updated_at": "none",
+                "id": "4h7m"
+              }
+            }
+          }
+        }
+      }
+    },
+
+    "overallStandard": {
+      "0": {
+        "6th": {}
+      },
+      "1": {
+        "7th": {}
+      },
+      "2": {
+        "8th": {}
+      },
+      "3": {
+        "9th": {}
+      },
+      "4": {
+        "10th": {}
+      }
+    }
+  }
+}
