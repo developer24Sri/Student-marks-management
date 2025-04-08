@@ -1,125 +1,138 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Student Grade Chart</title>
-    <style>
-      body {
-        font-family: Arial, sans-serif;
-        padding: 2rem;
-        background: #f7f7f7;
-      }
+<!-- Load Google Charts -->
+<script
+  type="text/javascript"
+  src="https://www.gstatic.com/charts/loader.js"
+></script>
+<script>
+  // Load the Google Charts library
+  google.charts.load("current", { packages: ["corechart"] });
+  google.charts.setOnLoadCallback(drawChart);
 
-      h1 {
-        text-align: center;
-        margin-bottom: 1rem;
-      }
-
-      select {
-        display: block;
-        margin: 0 auto 2rem auto;
-        padding: 0.5rem 1rem;
-        font-size: 1rem;
-      }
-
-      #chart {
-        display: flex;
-        justify-content: center;
-        align-items: flex-end;
-        gap: 2rem;
-        height: 300px;
-        border-left: 2px solid #333;
-        border-bottom: 2px solid #333;
-        padding: 1rem;
-        background: white;
-        max-width: 600px;
-        margin: 0 auto;
-      }
-
-      .bar {
-        width: 50px;
-        background-color: #4caf50;
-        position: relative;
-        display: flex;
-        align-items: flex-end;
-        justify-content: center;
-        transition: 0.3s ease;
-      }
-
-      .bar span {
-        position: absolute;
-        top: -25px;
-        font-weight: bold;
-        color: #333;
-      }
-
-      .label {
-        text-align: center;
-        margin-top: 0.5rem;
-        font-weight: bold;
-        color: #555;
-      }
-    </style>
-  </head>
-  <body>
-    <h1>Student Grades Chart</h1>
-
-    <select id="filter">
-      <option value="Overall">Overall</option>
-      <option value="Male">Male</option>
-      <option value="Female">Female</option>
-    </select>
-
-    <div id="chart"></div>
-
-    <script>
-      const data = {
-        StudentsGrades: {
-          Male: { A: 10, B: 20, C: 15 },
-          Female: { A: 12, B: 18, C: 10 },
-          Overall: {
-            A: 22,
-            B: 38,
-            C: 25,
+  // Sample JSON response (you would get this via fetch in real app)
+  const response = {
+    object: {
+      gradesOverview: {
+        0: { Excellent: { 0: {}, 1: {}, 2: {} } },
+        1: { "Very Good": { 0: {}, 1: {}, 2: {}, 3: {} } },
+        2: { Ok: { 0: {}, 1: {}, 2: {}, 3: {}, 4: {} } },
+        3: {
+          average: {
+            0: {},
+            1: {},
+            2: {},
+            3: {},
+            4: {},
+            5: {},
+            6: {},
+            7: {},
+            8: {},
           },
         },
-      };
+        4: {
+          "Fair and pass": {
+            0: {},
+            1: {},
+            2: {},
+            3: {},
+            4: {},
+            5: {},
+            6: {},
+            7: {},
+            8: {},
+            9: {},
+            10: {},
+            11: {},
+          },
+        },
+        5: {
+          Pass: {
+            0: {},
+            1: {},
+            2: {},
+            3: {},
+            4: {},
+            5: {},
+            6: {},
+            7: {},
+            8: {},
+            9: {},
+            10: {},
+            11: {},
+            12: {},
+            13: {},
+            14: {},
+            15: {},
+          },
+        },
+        6: {
+          Fail: {
+            0: {},
+            1: {},
+            2: {},
+            3: {},
+            4: {},
+            5: {},
+            6: {},
+            7: {},
+            8: {},
+          },
+        },
+      },
+    },
+  };
 
-      const filterSelect = document.getElementById("filter");
-      const chartDiv = document.getElementById("chart");
+  function drawChart() {
+    const gradesOverview = response.object.gradesOverview;
+    const gradeCounts = [];
 
-      function renderChart(filter) {
-        chartDiv.innerHTML = "";
+    // Extract grade name and student count
+    for (const key in gradesOverview) {
+      const gradeEntry = gradesOverview[key];
+      const gradeName = Object.keys(gradeEntry)[0];
 
-        const gradesData = data.StudentsGrades[filter];
+      if (!gradeName) continue; // Skip if invalid
 
-        for (let grade in gradesData) {
-          const count = gradesData[grade];
+      const studentObj = gradeEntry[gradeName];
+      const count = Object.keys(studentObj).length;
 
-          const bar = document.createElement("div");
-          bar.className = "bar";
-          bar.style.height = count * 5 + "px";
+      gradeCounts.push([gradeName, count, "color: #76A7FA"]);
+    }
 
-          const countLabel = document.createElement("span");
-          countLabel.textContent = count;
+    // Convert to Google Charts format
+    const data = google.visualization.arrayToDataTable([
+      ["Grade", "Count", { role: "style" }],
+      ...gradeCounts,
+    ]);
 
-          const label = document.createElement("div");
-          label.className = "label";
-          label.textContent = grade;
+    const view = new google.visualization.DataView(data);
+    view.setColumns([
+      0,
+      1,
+      {
+        calc: "stringify",
+        sourceColumn: 1,
+        type: "string",
+        role: "annotation",
+      },
+      2,
+    ]);
 
-          bar.appendChild(countLabel);
-          chartDiv.appendChild(bar);
-          chartDiv.appendChild(label);
-        }
-      }
+    // Chart options
+    const options = {
+      title: "Student Grade Distribution",
+      width: 700,
+      height: 400,
+      bar: { groupWidth: "80%" },
+      legend: { position: "none" },
+    };
 
-      // Initialize with default
-      renderChart(filterSelect.value);
+    // Render chart
+    const chart = new google.visualization.ColumnChart(
+      document.getElementById("columnchart_values")
+    );
+    chart.draw(view, options);
+  }
+</script>
 
-      filterSelect.addEventListener("change", (e) => {
-        renderChart(e.target.value);
-      });
-    </script>
-  </body>
-</html>
+<!-- Chart Container -->
+<div id="columnchart_values" style="width: 800px; height: 400px"></div>
