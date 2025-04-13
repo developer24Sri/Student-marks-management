@@ -8,17 +8,39 @@
       body {
         font-family: Arial, sans-serif;
         margin: 20px;
+        background-color: #F4C2D7;
       }
+
+      .dynamic-wrapper {
+        width: 90%;
+        background-color: white;
+        border-radius: 10px;
+      }
+
+      .table-wrapper {
+        width: 90%;
+        margin: 0 auto;
+        padding: 2% 0%;
+        /* max-width: 100%; */
+        overflow-x: auto;
+      }
+
       table {
-        width: 100%;
+        width: 1600px;
         border-collapse: collapse;
         margin-top: 20px;
+        table-layout: fixed;
       }
+
       th,
       td {
+        width: 170px;
+        /* white-space: wrap; */
+        overflow: hidden;
         border: 1px solid #ddd;
         padding: 8px;
         text-align: left;
+        font-size: 0.8rem;
       }
       th {
         background-color: #f4f4f4;
@@ -57,31 +79,34 @@
         <button id="editBtn">Edit</button>
       </div>
     </div>
-
-    <table id="studentTable">
-      <thead>
-        <tr>
-          <th>ID</th>
-          <th>Name</th>
-          <th>Phone</th>
-          <th>Email</th>
-          <th>Tamil</th>
-          <th>English</th>
-          <th>Science</th>
-          <th>Maths</th>
-          <th>Social</th>
-          <th>Average</th>
-          <th>Total</th>
-          <th>Grade</th>
-          <th>Comments</th>
-          <th>Gender</th>
-          <th>Standard</th>
-          <th>Created At</th>
-          <th>Updated At</th>
-        </tr>
-      </thead>
-      <tbody></tbody>
-    </table>
+    <div class="dynamic-wrapper">
+      <div class="table-wrapper">
+        <table id="studentTable">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Name</th>
+              <th>Phone</th>
+              <th>Email</th>
+              <th>Tamil</th>
+              <th>English</th>
+              <th>Science</th>
+              <th>Maths</th>
+              <th>Social</th>
+              <th>Average</th>
+              <th>Total</th>
+              <th>Grade</th>
+              <th>Comments</th>
+              <th>Gender</th>
+              <th>Standard</th>
+              <th>Created At</th>
+              <th>Updated At</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </div>
 
     <div class="pagination">
       <button class="go-to-first">Go to First</button>
@@ -92,8 +117,8 @@
       <label>
         Rows per page:
         <select id="rowsPerPage">
-          <option value="5">5</option>
-          <option value="10" selected>10</option>
+          <option value="5" selected>5</option>
+          <option value="10">10</option>
           <option value="15">15</option>
           <option value="20">20</option>
         </select>
